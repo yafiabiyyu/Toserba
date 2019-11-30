@@ -2,3 +2,4 @@ env/
 instance/
 .vscode/
 __pycache__/
+migrations/
