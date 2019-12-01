@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{{title}} | Toserba</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Atma">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/Contact-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Header-Dark.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Login-Form-Dark.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Navigation-with-Button.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Navigation-with-Search.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Registration-Form-with-Photo.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body>
+    <div class="login-dark">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="text" id="username" name="username" placeholder="Username" required="" style="font-family: Atma, cursive;"></div>
+            <div class="form-group"><input class="form-control" type="password" id="password" name="password" placeholder="Password" required="" style="font-family: Atma, cursive;"></div>
+            <div class="form-group"><a class="btn btn-primary btn-block" role="button" id="login" href="index.html" style="font-family: Atma, cursive;">Log In</a></div>
+        </form>
+    </div>
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
