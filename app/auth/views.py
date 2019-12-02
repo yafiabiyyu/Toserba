@@ -1,7 +1,14 @@
-from flask import render_template
-from flask_login import login_required
+from flask import flash, redirect,render_template,url_for, request
+from flask_login import login_required, login_user,logout_user
 from . import auth
 
-@auth.route('/')
+@auth.route('/', methods=['GET', 'POST'])
 def login():
-    return render_template('auth/index.html',title='Login')
+    if request.method == 'POST':
+        periksa_pengguna = Pengguna.query.filter_by(username=request.form['username']).first()
+        if periksa_pengguna is not None and periksa_pengguna.verify_password(request.form['password']):
+            login_user('periksa_pengguna')
+            return redirect(url_for('home.dashboard'))
+        else:
+            return redirect(url_for('auth.login'))
+    return render_template('auth/index.html', title="Login")
