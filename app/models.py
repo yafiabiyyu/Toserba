@@ -8,7 +8,7 @@ class Pengguna(db.Model):
     nama_pengguna = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(20), nullable=False, unique=True)
     password_hash = db.Column(db.String(128))
-    role = db.Column(db.String(20), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
     transaksi = db.relationship('Transaksi', backref='m_pengguna', lazy='dynamic')
 
     @property
