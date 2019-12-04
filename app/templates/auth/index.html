@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{{title}} | Toserba </title>
+
+  <link rel="stylesheet" href="{{url_for('static', filename='vendor/fontawesome-free/css/all.min.cs')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/sb-admin.css')}}">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">{{title}}</div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{error}}
+                </div>
+                {% endif %}
+                <form action="/" method="POST">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" class="form-control" id="username" name="username" value="{{request.form.username}}" placeholder="Username">
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="password" class="form-control" name="password" value="{{request.form.password}}" id="password" placeholder="Password">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

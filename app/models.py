@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login_manager
 
-class Pengguna(db.Model):
+class Pengguna(db.Model, UserMixin):
     __tablename__ = 'm_pengguna'
     id = db.Column(db.Integer, primary_key=True)
     nama_pengguna = db.Column(db.String(50), nullable=False)
@@ -23,7 +23,7 @@ class Pengguna(db.Model):
         return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
-        return '<Pengguna: {}>'.format((self.username))
+        return '<Pengguna: {}>'.format(self.username)
 
 
 @login_manager.user_loader
