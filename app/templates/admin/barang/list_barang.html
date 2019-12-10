@@ -28,8 +28,8 @@
                             <td>{{barang.stock_barang}} </td>
                             <td>{{barang.harga_barang}} </td>
                             <td>
-                                <a href="" class=" btn btn-primary btn-sm btn-block" >Ubah</a>
-                                <a href="" class="btn btn-danger btn-sm btn-block" >Hapus</a>
+                                <a href="{{ url_for('admin.edit_barang', id=barang.id) }}" class=" btn btn-primary btn-sm btn-block" >Ubah</a>
+                                <a href="{{ url_for('admin.delete_barang', id=barang.id) }}" class="btn btn-danger btn-sm btn-block" >Hapus</a>
                             </td>
                         </tr>
                     {% endfor %}
