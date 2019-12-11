@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %} Pengguna {% endblock %}
+{% block body %}
+<dvi class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-user-circle"></i>
+        Data Pengguna
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <a href="{{url_for('admin.add_pengguna')}}" class="btn btn-primary" style="margin-bottom: 10px;">Tambah Data</a>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Pengguna</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pengguna in pengguna %}
+                        <tr>
+                            <td>{{pengguna.nama_pengguna}}</td>
+                            <td>{{pengguna.username}}</td>
+                            <td>
+                                {% if pengguna.is_admin %}
+                                    Admin
+                                {% else %}
+                                    Staf
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_pengguna', id=pengguna.id) }}" class=" btn btn-primary btn-sm btn-block" >Ubah</a>
+                                <a href="{{ url_for('admin.delete_pengguna', id=pengguna.id) }}" class="btn btn-danger btn-sm btn-block" >Hapus</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</dvi>
+{% endblock %}

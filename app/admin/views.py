@@ -2,13 +2,69 @@ from flask import redirect, render_template, url_for, abort, request, flash
 from flask_login import login_required,current_user
 
 from . import admin
-from .forms import BarangForms
-from ..models import Barang
+from .forms import BarangForms, PenggunaForms
+from ..models import Barang,Pengguna
 from .. import db
 
 def check_admin():
     if not current_user.is_admin:
         abort(403)
+
+
+@admin.route('/admin/data/pengguna', methods=['GET','POST'])
+@login_required
+def data_pengguna():
+    check_admin()
+    listPengguna = Pengguna.query.all()
+    return render_template('admin/pengguna/list_pengguna.html',pengguna=listPengguna,title="Data Pengguna")
+
+
+@admin.route('/admin/pengguna/add', methods=['GET','POST'])
+@login_required
+def add_pengguna():
+    check_admin()
+    add_pengguna = True
+    form = PenggunaForms()
+    if form.validate_on_submit():
+        pengguna = Pengguna(
+            nama_pengguna = form.nama_pengguna.data,
+            username = form.username.data,
+            password = "1234",
+            is_admin = int(form.role.data)
+        )
+        db.session.add(pengguna)
+        db.session.commit()
+        return redirect(url_for('admin.data_pengguna'))
+    return render_template('admin/pengguna/pengguna.html', action='Edit',add_pengguna=add_pengguna,
+    title = "Edit Data Pengguna", form=form)
+
+
+@admin.route('/admin/pengguna/edit/<int:id>', methods=['GET','POST'])
+@login_required
+def edit_pengguna(id):
+    check_admin()
+    add_pengguna = False
+    getPengguna = Pengguna.query.get_or_404(id)
+    form = PenggunaForms(obj=getPengguna)
+    if form.validate_on_submit():
+        getPengguna.nama_pengguna = form.nama_pengguna.data
+        getPengguna.username = form.username.data
+        getPengguna.is_admin = int(form.role.data)
+        db.session.commit()
+        return redirect(url_for('admin.data_pengguna'))
+    return render_template('admin/pengguna/pengguna.html', action='Add',add_pengguna=add_pengguna,
+    title = "Tambah Data Pengguna", form=form)
+
+
+@admin.route('/admin/pengguna/delete/<int:id>', methods=['GET','POST'])
+@login_required
+def delete_pengguna(id):
+    check_admin()
+    hapusPengguna = Pengguna.query.get_or_404(id)
+    db.session.delete(hapusPengguna)
+    db.session.commit()
+    return redirect(url_for('admin.data_pengguna'))
+    return render_template(title="Hapus Data Barang")
 
 @admin.route('/admin/data/barang', methods=['GET','POST'])
 @login_required
@@ -39,7 +95,8 @@ def add_barang():
             pass
         return redirect(url_for('admin.data_barang'))
     return render_template('admin/barang/barangs.html', action="Add",
-    add_barang = add_barang, title="Add Data Barang", form=form)
+    add_barang = add_barang, title="Tambah Data Barang", form=form)
+
 
 
 @admin.route('/admin/barang/edit/<int:id>', methods=['GET','POST'])
