@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{%block title%}Transaksi{%endblock%}
+{% block body %}
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header">
+            Tambah Transaksi
+        </div>
+        <div class="card-body">
+            <form action="{{url_for('admin.add_to_cart')}}" method="POST">
+                <div class="form-group">
+                    <select name="list_barang" id="list_barang" class="form-control">
+                        {%for barang in barang%}
+                        <option value="{{barang.id}}">{{barang.nama_barang}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jumlah_barang">Jumlah Barang</label>
+                    <input type="text" name="jumlah_barang" id="jumlah_barang" class="form-control">
+                </div>
+                <button class="btn btn-primary btn-block" id="action" name="action" value="tambah">Tambah ke keranjang</button>
+                <button class="btn btn-primary btn-block" id="action" name="action" value="pembayaran">Pembayaran</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

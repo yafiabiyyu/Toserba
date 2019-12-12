@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Transaksi {% endblock %}
+{% block body %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-fw fa-chart-area"></i>
+            Data Transaksi
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <a href="{{url_for('admin.add_transaksi')}}" class="btn btn-primary" style="margin-bottom: 10px;">Tambah Data</a>
+                <br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Transaksi</th>
+                            <th>Tanggal Transaki</th>
+                            <th>Total Transaksi</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

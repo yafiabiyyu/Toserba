@@ -1,5 +1,7 @@
-from flask import redirect, render_template, url_for, abort, request, flash
+from flask import redirect, render_template, url_for, abort, request, flash, request, session
 from flask_login import login_required,current_user
+from uuid import uuid4
+from datetime import datetime
 
 from . import admin
 from .forms import BarangForms, PenggunaForms
@@ -126,3 +128,43 @@ def delete_barang(id):
     db.session.commit()
     return redirect(url_for('admin.data_barang'))
     return render_template(title="Hapus Data Barang")
+
+
+@admin.route('/admin/data/transaksi', methods=['GET','POST'])
+@login_required
+def data_transaksi():
+    #nanti query transaksi
+    return render_template('home/transaksi/list_transaksi.html',title="Data Transaksi")
+
+
+@admin.route('/admin/transaksi/add', methods=['GET','POST'])
+@login_required
+def add_transaksi():
+    getbarang = Barang.query.all()
+    return render_template('/home/transaksi/transaksi.html',barang = getbarang)
+
+
+@admin.route('/admin/cart', methods=['GET','POST'])
+@login_required
+def add_to_cart():
+    if request.method == 'POST':
+        idbarang = request.form.get('list_barang')
+        jumlah_barang = request.form.get('jumlah_barang')
+        if request.form.get('action') == 'tambah':
+            databarang = Barang.query.get_or_404(int(idbarang))
+            harga_barang = int(jumlah_barang) *databarang.harga_barang
+            if 'cart' not in session:
+                session['cart'] = []
+            data = session['cart']
+            data.append([idbarang,jumlah_barang,harga_barang,current_user.id])
+            session['cart'] = data
+            return redirect(url_for('admin.add_transaksi'))
+    return redirect(url_for('admin.pembayaran'))
+    return render_template(title="Add to cart")
+
+
+@admin.route('/admin/pembayaran', methods = ['GET','POST'])
+@login_required
+def pembayaran():
+    session.pop('cart')
+    return render_template('home/transaksi/pembayaran.html')
